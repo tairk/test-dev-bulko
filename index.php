@@ -19,18 +19,40 @@
 		</div>
 	</header>
 	<main>
+	
+	<?php
+		$emailErr = $telErr = "";
+		$email = $tel = "";
+		if ($_SERVER["REQUEST_METHOD"] == "POST"){
+			if(empty($_POST["email"])){
+				$emailErr = "Veuillez renseigner votre email";
+			}else if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+				$emailErr = "Mauvais format d'email. ";
+			}else{
+				$email = $_POST["email"];
+			}
+			
+			if(empty($_POST["tel"])){
+				$telErr = "Veuillez renseigner votre numero de telephone";
+			}else if(!preg_match("/^[0]{1}[0-9]{9}$/", $_POST["tel"])){
+				$telErr = "numéro de téléphone invalide. ";
+			}else{
+				$tel = $_POST["tel"];
+			}
+		}
+	?>
 		<!-- <div class="form-ok">Pour votre message de validation de formulaire</div> -->
 		<!-- <div class="form-error">Pour votre message d'erreur</div> -->
-		<form method="post" action="post.php">
+		<form method="post" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 			<p>Contactez-nous</p>
 			<div class="form-part-1">
 				<div class="form-control">
 					<input type="text" name="nom" placeholder="Nom"/>
 				</div>
-				<div class="form-control">
+				<div class="form-control"><?php echo $emailErr;?>
 					<input type="email" name="email" placeholder="Email"/>
 				</div>
-				<div class="form-control">
+				<div class="form-control"><?php echo $telErr;?>
 					<input type="tel" name="tel" placeholder="Téléphone"/>
 				</div>
 			</div>
