@@ -22,7 +22,7 @@
 	
 	<?php
 		$emailErr = $telErr = "";
-		$email = $tel = "";
+		$email = $tel = $nom = $message = "";
 		if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			if(empty($_POST["email"])){
 				$emailErr = "Veuillez renseigner votre email";
@@ -39,6 +39,8 @@
 			}else{
 				$tel = $_POST["tel"];
 			}
+			$nom = $_POST["nom"];
+			$message = $_POST["message"];
 		}
 	?>
 		<!-- <div class="form-ok">Pour votre message de validation de formulaire</div> -->
@@ -47,18 +49,19 @@
 			<p>Contactez-nous</p>
 			<div class="form-part-1">
 				<div class="form-control">
-					<input type="text" name="nom" placeholder="Nom"/>
+					<input type="text" name="nom" placeholder="Nom" />	
 				</div>
 				<div class="form-control"><?php echo $emailErr;?>
-					<input type="email" name="email" placeholder="Email"/>
+					<input type="email" name="email" placeholder="Email" />		
 				</div>
 				<div class="form-control"><?php echo $telErr;?>
-					<input type="tel" name="tel" placeholder="Téléphone"/>
+					<input type="tel" name="tel" placeholder="Téléphone" />	
 				</div>
 			</div>
 			<div class="form-part-2">
 				<div class="form-control">
-					<textarea name="message" placeholder="Message"></textarea>
+					<textarea name="message" placeholder="Message">
+					</textarea>
 				</div>
 				<input type="submit" value="Envoyer" />
 			</div>
